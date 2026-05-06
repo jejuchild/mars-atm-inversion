@@ -1,0 +1,33 @@
+seed: 42
+data:
+  mode: synthetic
+  synthetic:
+    height: 64
+    width: 64
+    n_bands: 30
+    n_anchors: 5
+    tau_true: 0.5
+    airmass: 1.41
+    noise: 0.01
+  real:
+    crism_dir: ../../data/CRISM
+    mastcamz_dir: ../../data/Mastcam-Z
+    meda_dir: ../../data/MEDA
+corrections:
+  enabled: [none, volcano_scan, beer_lambert, lambert_albedo]
+  beer_lambert:
+    tau_estimate: 0.5
+    airmass: 1.41
+  lambert_albedo:
+    tau_estimate: 0.5
+    airmass: 1.41
+  volcano_scan:
+    reference_percentile: 5
+anchor:
+  metric: cosine
+runtime:
+  cpu_only: true
+  budget_seconds: 60
+output:
+  artifacts_dir: artifacts
+  log_dir: logs
