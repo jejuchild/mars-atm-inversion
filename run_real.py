@@ -216,13 +216,21 @@ def main() -> int:
         "per_sol": per_sol,
         "per_file_top10_lowest_cv": sorted(per_file, key=lambda d: d["robust_cv"])[:10],
         "per_file_top10_highest_cv": sorted(per_file, key=lambda d: -d["robust_cv"])[:10],
+        "label": "RADIANCE VARIABILITY SCREENING (NOT ATMOSPHERIC INVERSION)",
+        "verification_note": (
+            "Codex 2026-05-06 verification flagged: high robust_cv values (especially "
+            "max=2.20) cannot be attributed to atmospheric variation alone — scene "
+            "content (sky vs ground), shadows, exposure, filter, mask quality, and "
+            "calibration artifacts also drive IQR/median. We label this strictly as "
+            "'radiance variability screening' and avoid claiming atmospheric "
+            "interpretation. Future paper-ready Phase 1 must control for scene/filter."
+        ),
         "honesty_note": (
             "CRISM is not locally available, so the 4-method correction tournament "
             "cannot run on real data. This diagnostic reports per-image radiance "
             "variability (robust_cv = IQR / |median|) across Mastcam-Z LEFT RASLN "
-            "products, which is a precondition signal for atmospheric correction "
-            "(high CV across sols hints at illumination/atmospheric variation that "
-            "any future correction would need to handle)."
+            "products. Calling it 'atmospheric variability' is unsupported — high CV "
+            "may reflect scene content / mask issues / saturation, not atmosphere."
         ),
     }
     artifacts = ensure_dir(args.artifacts)
